@@ -1,0 +1,6 @@
+{
+  "name": "Santt Production",
+  "description": "Premium film, video, and multimedia creative production studio. High-end visuals, modern campaigns, and brand storytelling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

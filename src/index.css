@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --color-brand-orange: #FF6B00;
+  --color-brand-dark: #0D0D0D;
+  --color-brand-gray: #1A1A1A;
+}
+
+/* Custom global styles & scrollbar behavior */
+html {
+  scroll-behavior: smooth;
+  background-color: #0D0D0D;
+  color: #FFFFFF;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0D0D0D;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6B00;
+}
+
+/* Focus effects and beautiful neon glow */
+.text-glow-orange {
+  text-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+}
+
+.box-glow-orange {
+  box-shadow: 0 0 30px rgba(255, 107, 0, 0.15);
+}
+
+.box-glow-orange-intense {
+  box-shadow: 0 0 40px rgba(255, 107, 0, 0.45);
+}
+
+/* Custom Video aspect ratio and general overlays */
+.v-overlay {
+  background: linear-gradient(to top, #0D0D0D 0%, rgba(13, 13, 13, 0.7) 50%, rgba(13, 13, 13, 0.1) 100%);
+}
