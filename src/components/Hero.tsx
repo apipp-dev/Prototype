@@ -34,22 +34,23 @@ export default function Hero() {
         />
       </div>
 
-      {/* METADATA HIGHLIGHT (A24 / Linear styling vibe) */}
-      <div className="absolute top-28 left-4 sm:left-6 lg:left-8 z-20 hidden md:flex items-center gap-3 font-mono text-[10px] text-neutral-400 tracking-wider">
-        <span className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-          {t.meta.brandName} DIRECTORS LOG
-        </span>
-        <span className="text-neutral-700">//</span>
-        <span>LAT: 5.54829° N, LON: 95.32375° E</span>
-        <span className="text-neutral-700">//</span>
-        <span className="text-brand-orange uppercase">{t.meta.coverage}</span>
-      </div>
+      {/* TOP HEADER ROW FOR HERO (A24 / Linear styling vibe - Placed at the very top to prevent overlapping) */}
+      <div className="absolute top-6 left-4 sm:left-6 lg:left-8 right-4 sm:right-6 lg:right-8 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        {/* METADATA HIGHLIGHT */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[9px] sm:text-[10px] text-neutral-400 tracking-wider">
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+            {t.meta.brandName} DIRECTORS LOG
+          </span>
+          <span className="text-neutral-700">//</span>
+          <span className="text-brand-orange uppercase text-[8px] sm:text-[10px]">{t.meta.coverage}</span>
+        </div>
 
-      {/* DRONE TEXT OVERLAY ON TOP-RIGHT */}
-      <div className="absolute top-28 right-4 sm:right-6 lg:right-8 z-20 hidden md:flex items-center gap-2 font-mono text-[9px] text-neutral-500 uppercase tracking-widest backdrop-blur-md bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
-        <Anchor className="w-3 h-3 text-brand-orange" />
-        <span>{t.hero.droneTag}</span>
+        {/* DRONE TEXT OVERLAY */}
+        <div className="flex items-center gap-1.5 font-mono text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-widest backdrop-blur-md bg-white/5 px-2.5 py-1.5 rounded-full border border-white/5 self-start sm:self-auto shrink-0 shadow-lg">
+          <Anchor className="w-2.5 h-2.5 text-brand-orange" />
+          <span>{t.hero.droneTag}</span>
+        </div>
       </div>
 
       {/* MAIN CONTAINER FOR COPYWRITING */}

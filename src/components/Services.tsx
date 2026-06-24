@@ -48,10 +48,12 @@ export default function Services() {
               {t.services.items.map((srv, idx) => {
                 const isSelected = selectedServiceId === srv.id;
                 return (
-                  <button
+                  <motion.button
                     id={`service-rail-${srv.id}`}
                     key={srv.id}
                     onClick={() => setSelectedServiceId(srv.id)}
+                    whileHover={{ scale: 1.025 }}
+                    transition={{ duration: 0.2 }}
                     className={`w-full text-left p-4 rounded-lg border transition-all duration-300 flex items-center justify-between group cursor-pointer ${
                       isSelected
                         ? 'bg-neutral-950 border-brand-orange/60 text-white shadow-[0_0_15px_rgba(255,107,0,0.15)]'
@@ -69,7 +71,7 @@ export default function Services() {
                     <ArrowRight className={`w-3.5 h-3.5 transition-transform ${
                       isSelected ? 'text-brand-orange translate-x-1' : 'text-neutral-600 group-hover:translate-x-0.5'
                     }`} />
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
@@ -123,7 +125,12 @@ export default function Services() {
                     </p>
                   </div>
 
-                  <div className="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-900 group shadow-md">
+                  <motion.div 
+                    whileHover={{ scale: 1.03, rotateX: 2, rotateY: -2, boxShadow: "0 20px 30px rgba(0,0,0,0.5)" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    style={{ transformStyle: "preserve-3d" }}
+                    className="relative aspect-video rounded-lg overflow-hidden border border-white/5 bg-neutral-900 group shadow-md cursor-pointer"
+                  >
                     <img
                       src={currentService.sampleWork}
                       alt={currentService.title}
@@ -135,22 +142,32 @@ export default function Services() {
                       <Camera className="w-3 h-3 text-brand-orange" />
                       <span>{lang === 'en' ? 'SAMPLE HARVEST' : 'PORTFOLIO UTAMA'}</span>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* DELIVERABLES BENTO BULLETINS */}
-                <div className="space-y-4 pt-4 border-t border-white/5">
+                <div className="space-y-4 pt-4 border-t border-white/5" style={{ perspective: "1000px" }}>
                   <h4 className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
                     // {lang === 'en' ? 'Guaranteed Deliverables' : 'Aset Hasil Keluaran (Deliverables)'}
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {currentService.deliverables.map((del, i) => (
-                      <div key={i} className="p-4 rounded bg-neutral-900/60 border border-white/5 flex items-start gap-3">
+                      <motion.div
+                        key={i}
+                        whileHover={{ 
+                          y: -5, 
+                          scale: 1.03,
+                          borderColor: "rgba(255,107,0,0.3)",
+                          boxShadow: "0 15px 30px rgba(0,0,0,0.4), 0 0 15px rgba(255,107,0,0.08)"
+                        }}
+                        transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                        className="p-4 rounded bg-neutral-900/60 border border-white/5 flex items-start gap-3 cursor-pointer"
+                      >
                         <Check className="w-4 h-4 text-brand-orange mt-0.5 shrink-0" />
                         <span className="text-xs text-neutral-300 font-sans leading-relaxed">
                           {del}
                         </span>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
@@ -162,14 +179,19 @@ export default function Services() {
                   </h4>
                   <div className="space-y-3.5">
                     {currentService.process.map((step, i) => (
-                      <div key={i} className="flex gap-4">
+                      <motion.div 
+                        key={i} 
+                        whileHover={{ x: 6, scale: 1.01 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex gap-4 cursor-pointer p-1 rounded hover:bg-white/[0.02]"
+                      >
                         <div className="font-mono text-xs text-brand-orange font-bold px-2 py-1 bg-brand-orange/10 border border-brand-orange/20 rounded h-fit shrink-0">
                           {lang === 'en' ? 'PHASE' : 'TAHAP'} 0{i + 1}
                         </div>
                         <p className="text-xs text-neutral-400 font-sans tracking-wide leading-relaxed">
                           {step}
                         </p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </div>

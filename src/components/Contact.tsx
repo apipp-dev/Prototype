@@ -59,17 +59,45 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    // Simulate sending transmission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        contact: '',
-        projectType: 'graduation',
-        message: ''
-      });
-    }, 2000);
+    // Direct WhatsApp submission (no fake background transmission delay)
+    const waNumber = '6282361111620';
+    const projectLabel = 
+      formData.projectType === 'graduation' ? (lang === 'en' ? 'Graduation & Milestone' : 'Dokumentasi Wisuda & Kelompok') :
+      formData.projectType === 'event' ? (lang === 'en' ? 'Event & Music Festival' : 'Cakupan Acara / Event') :
+      formData.projectType === 'travel' ? (lang === 'en' ? 'Travel Open-Trip' : 'Perjalanan Liburan & Alam') :
+      formData.projectType === 'umkm' ? (lang === 'en' ? 'UMKM Content' : 'Pembuatan Konten Lokal UMKM') :
+      formData.projectType === 'product' ? (lang === 'en' ? 'Premium Product Ad' : 'Iklan Produk & Komersial') :
+      (lang === 'en' ? 'Drone FPV mapping' : 'Penerbangan Drone FPV Udara');
+
+    const waText = lang === 'en' 
+      ? `Halo Santt Production!
+
+I would like to discuss a project. Here are the details:
+*Name:* ${formData.name}
+*Contact:* ${formData.contact}
+*Project Type:* ${projectLabel}
+*Message:* ${formData.message || '-'}`
+      : `Halo Santt Production!
+
+Saya ingin mendiskusikan rencana proyek baru. Berikut rinciannya:
+*Nama:* ${formData.name}
+*Kontak:* ${formData.contact}
+*Tipe Layanan:* ${projectLabel}
+*Rincian Misi:* ${formData.message || '-'}`;
+
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`;
+    
+    // Open in a new tab/window
+    window.open(waUrl, '_blank');
+
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    setFormData({
+      name: '',
+      contact: '',
+      projectType: 'graduation',
+      message: ''
+    });
   };
 
   return (

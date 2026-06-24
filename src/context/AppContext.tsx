@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type PageId = 'home' | 'works' | 'services' | 'pricing' | 'about' | 'contact';
+export type PageId = 'home' | 'about' | 'services' | 'works' | 'pricing' | 'faq' | 'contact';
 export type LangId = 'en' | 'id';
 
 interface AppContextType {
@@ -54,10 +54,11 @@ export const translations = {
     },
     nav: {
       home: "Home",
-      works: "Works",
-      services: "Services",
-      pricing: "Pricing",
       about: "About",
+      services: "Services",
+      works: "Portfolio",
+      pricing: "Pricing",
+      faq: "FAQ",
       contact: "Contact",
       bookProject: "Book A Project",
     },
@@ -449,10 +450,11 @@ export const translations = {
     },
     nav: {
       home: "Beranda",
-      works: "Karya",
-      services: "Layanan",
-      pricing: "Harga",
       about: "Tentang",
+      services: "Layanan",
+      works: "Portofolio",
+      pricing: "Daftar Harga",
+      faq: "FAQ",
       contact: "Kontak",
       bookProject: "Pesan Proyek",
     },

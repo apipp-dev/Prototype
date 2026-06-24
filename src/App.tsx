@@ -1,16 +1,21 @@
-import React from 'react';
-import Navbar from './components/Navbar';
+import React, { lazy, Suspense } from 'react';
+import VerticalSidebar from './components/VerticalSidebar';
 import Hero from './components/Hero';
-import Portfolio from './components/Portfolio';
-import Services from './components/Services';
-import About from './components/About';
-import Pricing from './components/Pricing';
-import Contact from './components/Contact';
 import WhatsAppButton from './components/WhatsAppButton';
 import Footer from './components/Footer';
+import SEO from './components/SEO';
 import { useApp } from './context/AppContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Calendar, Award, MessageSquare, ArrowRight, Check, Anchor, Video } from 'lucide-react';
+
+// Lazy loading the page views to optimize bundle chunking & load speed
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const Services = lazy(() => import('./components/Services'));
+const Pricing = lazy(() => import('./components/Pricing'));
+const About = lazy(() => import('./components/About'));
+const Contact = lazy(() => import('./components/Contact'));
+const FAQ = lazy(() => import('./components/FAQ'));
+const DroneHUD = lazy(() => import('./components/DroneHUD'));
 
 export default function App() {
   const { currentPage, setCurrentPage, lang, t } = useApp();
@@ -56,6 +61,8 @@ export default function App() {
 
   return (
     <div className="bg-[#0D0D0D] text-white selection:bg-brand-orange selection:text-white min-h-screen relative font-sans">
+      {/* SEO & Document Head Metadata Manager */}
+      <SEO />
       
       {/* PREMIUM BACKGROUND STRUCTURAL DOTS WATERMARK */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.02] select-none">
@@ -64,11 +71,11 @@ export default function App() {
 
       <div className="relative z-10 flex flex-col min-h-screen justify-between">
         
-        {/* SHARED TRADITIONAL PREMIUM NAV & MOBILE BOTTOM PILLBAR */}
-        <Navbar />
+        {/* GLASSMORPHISM VERTICAL FLOATING SIDEBAR (MD/LG SCREEN PREFERENCE) */}
+        <VerticalSidebar />
 
         {/* SITE VIEWS ROUTER */}
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-4 pb-24 px-4 md:pt-6 md:pb-6 md:pl-24 md:pr-8 transition-all duration-300">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
@@ -102,9 +109,19 @@ export default function App() {
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ perspective: "1000px" }}>
                         {t.whyChooseUs.items.map((item, i) => (
-                          <div key={i} className="p-6 rounded-lg bg-neutral-950 border border-white/5 hover:border-brand-orange/30 transition-all duration-300">
+                          <motion.div 
+                            key={i} 
+                            whileHover={{ 
+                              y: -8, 
+                              scale: 1.03, 
+                              borderColor: "rgba(255,107,0,0.35)", 
+                              boxShadow: "0 22px 45px rgba(0,0,0,0.55), 0 0 25px rgba(255,107,0,0.06)" 
+                            }}
+                            transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                            className="p-6 rounded-lg bg-neutral-950 border border-white/5 cursor-pointer"
+                          >
                             <span className="font-mono text-xs text-brand-orange font-bold font-mono">0{i+1}//</span>
                             <h3 className="text-sm font-display font-black text-white uppercase mt-4 mb-2 tracking-wider">
                               {item.title}
@@ -112,7 +129,7 @@ export default function App() {
                             <p className="text-xs text-neutral-400 leading-relaxed font-sans font-light">
                               {item.desc}
                             </p>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
@@ -139,10 +156,23 @@ export default function App() {
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
                         {t.services.items.slice(0, 3).map((srv) => (
-                          <div key={srv.id} className="p-6 rounded-xl bg-neutral-950 border border-white/5 flex flex-col justify-between hover:border-brand-orange/20 transition-all group aspect-[5/4]">
-                            <div className="space-y-4">
+                          <motion.div 
+                            key={srv.id} 
+                            whileHover={{ 
+                              y: -10, 
+                              scale: 1.035, 
+                              rotateX: 2,
+                              rotateY: -2,
+                              borderColor: "rgba(255,107,0,0.4)", 
+                              boxShadow: "0 25px 50px rgba(0,0,0,0.65), 0 0 25px rgba(255,107,0,0.12)" 
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                            style={{ transformStyle: "preserve-3d" }}
+                            className="p-6 rounded-xl bg-neutral-950 border border-white/5 flex flex-col justify-between cursor-pointer group aspect-[5/4]"
+                          >
+                            <div className="space-y-4" style={{ transform: "translateZ(30px)" }}>
                               <span className="text-[9px] font-mono text-brand-orange uppercase tracking-wider block font-bold">
                                 // {srv.title.split(' ')[0]}
                               </span>
@@ -156,14 +186,49 @@ export default function App() {
                             <button
                               id={`srv-home-enq-${srv.id}`}
                               onClick={() => setCurrentPage('services')}
-                              className="mt-6 text-[10px] font-mono font-bold uppercase tracking-widest text-brand-orange flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer"
+                              className="mt-6 text-[10px] font-mono font-bold uppercase tracking-widest text-brand-orange flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer self-start"
+                              style={{ transform: "translateZ(40px)" }}
                             >
                               <span>{lang === 'en' ? 'View Details' : 'Lihat Detail'}</span>
                               <ArrowRight className="w-3.5 h-3.5" />
                             </button>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
+                    </div>
+                  </section>
+
+                  {/* INTERACTIVE FPV DRONE RADAR & SIMULATOR PORT (Apple / DJI high fidelity) */}
+                  <section className="py-24 bg-[#090909] border-b border-white/5 relative overflow-hidden">
+                    {/* Glowing background grid ambient effects */}
+                    <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-orange/5 rounded-full blur-[120px] pointer-events-none" />
+                    
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div className="text-center max-w-3xl mx-auto mb-12">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-[9px] font-mono tracking-widest text-brand-orange uppercase font-bold">
+                          <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+                          {lang === 'en' ? 'INTERACTIVE FLIGHT SIMULATION' : 'SIMULASI PENERBANGAN INTERAKTIF'}
+                        </span>
+                        <h2 className="font-display font-[900] text-3xl sm:text-4xl lg:text-5xl uppercase text-white mt-3 leading-none tracking-tight">
+                          {lang === 'en' ? 'FPV LIVE FLIGHT DECK' : 'FLIGHT DECK DRONE INTERAKTIF'}
+                        </h2>
+                        <p className="mt-3 text-xs sm:text-sm text-neutral-400 font-sans leading-relaxed">
+                          {lang === 'en' 
+                            ? 'Test our actual drone camera controls, altitude grids, ISO nodes, and live telemetry directly from your browser. Our crafts are built for extreme cinematic storytelling.'
+                            : 'Uji langsung kontrol kamera drone, kisi ketinggian, modul ISO, dan telemetri penerbangan langsung dari browser Anda. Armada kami dirancang khusus untuk penceritaan ekstrem.'}
+                        </p>
+                      </div>
+
+                      <Suspense fallback={
+                        <div className="w-full h-[500px] flex items-center justify-center bg-neutral-950/40 rounded-3xl border border-white/5">
+                          <div className="flex flex-col items-center gap-3">
+                            <div className="w-8 h-8 rounded-full border-2 border-brand-orange border-t-transparent animate-spin" />
+                            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">// BOOTING DRONE HUD TELEMETRY...</span>
+                          </div>
+                        </div>
+                      }>
+                        <DroneHUD />
+                      </Suspense>
                     </div>
                   </section>
 
@@ -189,7 +254,7 @@ export default function App() {
                       </div>
 
                       {/* Displaying 3 premium highlight items */}
-                      <Portfolio />
+                      <Portfolio isPreview={true} />
                     </div>
                   </section>
 
@@ -208,9 +273,19 @@ export default function App() {
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
                         {t.process.steps.map((step, idx) => (
-                          <div   key={idx} className="relative p-7 rounded-lg bg-neutral-950 border border-white/5 flex flex-col justify-between">
+                          <motion.div 
+                            key={idx} 
+                            whileHover={{ 
+                              y: -8, 
+                              scale: 1.03, 
+                              borderColor: "rgba(255,107,0,0.35)", 
+                              boxShadow: "0 20px 40px rgba(0,0,0,0.55), 0 0 20px rgba(255,107,0,0.05)" 
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="relative p-7 rounded-lg bg-neutral-950 border border-white/5 flex flex-col justify-between cursor-pointer"
+                          >
                             <span className="font-display font-black text-4xl text-neutral-800 tracking-tight block border-b border-white/5 pb-3 font-mono">
                               {step.phase}
                             </span>
@@ -222,50 +297,13 @@ export default function App() {
                                 {step.desc}
                               </p>
                             </div>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
                   </section>
 
-                  {/* 5. PRICING PREVIEW ACTION */}
-                  <section className="py-24 bg-[#090909] border-b border-white/5 relative">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 p-8 md:p-12 rounded-xl bg-neutral-950 border border-white/5 shadow-2xl">
-                        <div className="space-y-4 max-w-xl">
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand-orange/15 border border-brand-orange/30 text-[9px] font-mono text-brand-orange uppercase font-bold tracking-widest">
-                            <Sparkles className="w-3.5 h-3.5" />
-                            <span>{lang === 'en' ? 'Package Highlight' : 'Sorotan Paket'}</span>
-                          </div>
-                          <h3 className="font-display font-black text-2xl sm:text-3xl text-white uppercase leading-none tracking-tight">
-                            {lang === 'en' ? 'Cinematic Event Mastery Signature Package' : 'Paket Penguasaan Acara Masterpiece'}
-                          </h3>
-                          <p className="text-xs text-neutral-400 font-sans leading-relaxed tracking-wide">
-                            {lang === 'en'
-                              ? "Our highly requested comprehensive coverage plan. Features full-day footage, cinematic vertical recaps, edited documentary portrait files, and professional licensed UHD aerial static mapping."
-                              : "Rencana layanan komprehensif kami yang paling banyak diminati. Menampilkan video liputan satu hari penuh, rekap vertikal media sosial, foto potret pendukung, serta rekap drone udara UHD berlisensi."}
-                          </p>
-                        </div>
 
-                        <div className="text-center bg-[#090909] p-6 rounded-lg border border-white/5 min-w-[240px] space-y-4 shrink-0">
-                          <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-widest block">
-                            {lang === 'en' ? 'PLAN STARTS AT' : 'PAKET MULAI DARI'}
-                          </span>
-                          <span className="font-display font-[900] text-3xl sm:text-4xl text-brand-orange tracking-tight block">
-                            Rp 7.5M
-                          </span>
-                          <button
-                            id="home-pricing-direct-btn"
-                            onClick={() => setCurrentPage('pricing')}
-                            className="w-full py-3 bg-brand-orange hover:bg-brand-orange/95 text-white text-[10px] font-bold uppercase tracking-widest rounded transition-all cursor-pointer shadow-[0_0_12px_rgba(255,107,0,0.3)] flex items-center justify-center gap-1.5"
-                          >
-                            <span>{lang === 'en' ? 'View Pricing Plans' : 'Lihat Daftar Harga'}</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
 
                   {/* 6. TESTIMONIALS (Apple/DJI style slider) */}
                   <section className="py-24 bg-[#0D0D0D] border-b border-white/5 relative">
@@ -280,9 +318,19 @@ export default function App() {
                         </h2>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto font-sans">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto font-sans" style={{ perspective: "1000px" }}>
                         {testimonials.map((test) => (
-                          <div key={test.id} className="p-6 rounded-lg bg-neutral-950 border border-white/5 space-y-6 relative">
+                          <motion.div 
+                            key={test.id} 
+                            whileHover={{ 
+                              y: -8, 
+                              scale: 1.025, 
+                              borderColor: "rgba(255,107,0,0.35)", 
+                              boxShadow: "0 22px 45px rgba(0,0,0,0.55), 0 0 22px rgba(255,107,0,0.06)" 
+                            }}
+                            transition={{ type: "spring", stiffness: 320, damping: 20 }}
+                            className="p-6 rounded-lg bg-neutral-950 border border-white/5 space-y-6 relative cursor-pointer"
+                          >
                             <p className="text-xs sm:text-sm text-neutral-300 italic font-light leading-relaxed">
                               "{test.feedback}"
                             </p>
@@ -302,7 +350,7 @@ export default function App() {
                                 </span>
                               </div>
                             </div>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
@@ -335,20 +383,32 @@ export default function App() {
                 </div>
               )}
 
-              {/* WORKS TAB PAGE VIEW */}
-              {currentPage === 'works' && <Portfolio />}
+              <Suspense fallback={
+                <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+                  <div className="w-10 h-10 rounded-full border-2 border-[#2D2D2D] border-t-[#FF6B00] animate-spin shadow-[0_0_15px_rgba(255,107,0,0.2)]" />
+                  <p className="text-[10px] font-mono tracking-widest text-[#FF8C42] uppercase animate-pulse">
+                    {lang === 'en' ? '// SYNCING SECURE NODE...' : '// MENYELARASKAN PORTAL...'}
+                  </p>
+                </div>
+              }>
+                {/* ABOUT TAB PAGE VIEW */}
+                {currentPage === 'about' && <About />}
 
-              {/* SERVICES TAB PAGE VIEW */}
-              {currentPage === 'services' && <Services />}
+                {/* SERVICES TAB PAGE VIEW */}
+                {currentPage === 'services' && <Services />}
 
-              {/* PRICING TAB PAGE VIEW */}
-              {currentPage === 'pricing' && <Pricing />}
+                {/* WORKS TAB PAGE VIEW */}
+                {currentPage === 'works' && <Portfolio />}
 
-              {/* ABOUT TAB PAGE VIEW */}
-              {currentPage === 'about' && <About />}
+                {/* PRICING TAB PAGE VIEW */}
+                {currentPage === 'pricing' && <Pricing />}
 
-              {/* CONTACT TAB PAGE VIEW */}
-              {currentPage === 'contact' && <Contact />}
+                {/* FAQ TAB PAGE VIEW */}
+                {currentPage === 'faq' && <FAQ />}
+
+                {/* CONTACT TAB PAGE VIEW */}
+                {currentPage === 'contact' && <Contact />}
+              </Suspense>
 
             </motion.div>
           </AnimatePresence>

@@ -46,7 +46,7 @@ export default function WhatsAppButton() {
     : "Halo! Selamat datang di Santt Studio. Kami mengabdi dalam memproduksi kampanye film, penceritaan, serta rekap drone FPV. Beritahu kami kebutuhan visual Anda!";
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 font-sans">
+    <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-40 font-sans">
       
       {/* Floating Teaser Notification Prompt */}
       <AnimatePresence>

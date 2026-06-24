@@ -60,32 +60,47 @@ export default function About() {
 
             {/* Vision & Mission Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
-              <div className="p-6 rounded-lg bg-neutral-950 border border-white/5">
+              <motion.div 
+                whileHover={{ y: -6, scale: 1.025, borderColor: "rgba(255,107,0,0.25)", boxShadow: "0 15px 30px rgba(0,0,0,0.4)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="p-6 rounded-lg bg-neutral-950 border border-white/5 cursor-pointer"
+              >
                 <span className="text-[10px] font-mono text-brand-orange uppercase block mb-1">
                   // {t.about.vision.title}
                 </span>
                 <p className="text-xs text-neutral-400 font-sans leading-relaxed">
                   {t.about.vision.desc}
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="p-6 rounded-lg bg-neutral-950 border border-white/5">
+              <motion.div 
+                whileHover={{ y: -6, scale: 1.025, borderColor: "rgba(255,107,0,0.25)", boxShadow: "0 15px 30px rgba(0,0,0,0.4)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="p-6 rounded-lg bg-neutral-950 border border-white/5 cursor-pointer"
+              >
                 <span className="text-[10px] font-mono text-brand-orange uppercase block mb-1">
                   // {t.about.mission.title}
                 </span>
                 <p className="text-xs text-neutral-400 font-sans leading-relaxed whitespace-pre-line">
                   {t.about.mission.desc}
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Right Visual Stats Column */}
           <div className="lg:col-span-5 grid grid-cols-2 gap-4">
             {stats.map((stat) => (
-              <div
+              <motion.div
                 key={stat.label}
-                className="p-6 rounded-lg bg-neutral-950 border border-white/5 relative overflow-hidden group hover:border-brand-orange/30 transition-all duration-300 shadow-xl"
+                whileHover={{ 
+                  y: -6, 
+                  scale: 1.04, 
+                  borderColor: "rgba(255,107,0,0.4)",
+                  boxShadow: "0 20px 35px rgba(255,107,0,0.12)"
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                className="p-6 rounded-lg bg-neutral-950 border border-white/5 relative overflow-hidden group cursor-pointer shadow-xl"
               >
                 <div className="absolute top-0 right-0 w-16 h-16 bg-brand-orange/5 rounded-full blur-2xl pointer-events-none group-hover:bg-brand-orange/15 transition-colors duration-300" />
                 <span className="font-display font-[900] text-3xl sm:text-5xl text-brand-orange tracking-tight block">
@@ -94,11 +109,15 @@ export default function About() {
                 <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mt-2 leading-tight">
                   {stat.label}
                 </span>
-              </div>
+              </motion.div>
             ))}
 
             {/* Coverage Dispatch */}
-            <div className="col-span-2 p-6 rounded-lg bg-gradient-to-r from-neutral-950 to-neutral-900 border border-white/5">
+            <motion.div 
+              whileHover={{ y: -4, scale: 1.02, borderColor: "rgba(255,107,0,0.2)", boxShadow: "0 15px 30px rgba(0,0,0,0.3)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+              className="col-span-2 p-6 rounded-lg bg-gradient-to-r from-neutral-950 to-neutral-900 border border-white/5 cursor-pointer"
+            >
               <div className="flex items-center gap-2 mb-2">
                 <MapPin className="w-4 h-4 text-brand-orange" />
                 <span className="text-[10px] font-mono text-brand-orange uppercase tracking-wider">
@@ -117,7 +136,7 @@ export default function About() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
 
         </div>
@@ -136,11 +155,21 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: "1000px" }}>
             {t.about.values.items.map((item, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="p-8 rounded-lg bg-neutral-950 border border-white/5 hover:border-brand-orange/20 transition-all duration-300"
+                whileHover={{ 
+                  y: -8, 
+                  scale: 1.03, 
+                  rotateX: 2,
+                  rotateY: -2,
+                  borderColor: "rgba(255,107,0,0.3)",
+                  boxShadow: "0 25px 40px rgba(0,0,0,0.55), 0 0 25px rgba(255,107,0,0.12)"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                style={{ transformStyle: "preserve-3d" }}
+                className="p-8 rounded-lg bg-neutral-950 border border-white/5 cursor-pointer"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded bg-brand-orange/10 border border-brand-orange/20 mb-6">
                   {valueIcons[idx] || <Shield className="w-5 h-5 text-brand-orange" />}
@@ -151,7 +180,7 @@ export default function About() {
                 <p className="text-xs text-neutral-400 font-sans leading-relaxed">
                   {item.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
