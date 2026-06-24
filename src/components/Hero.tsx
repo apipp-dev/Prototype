@@ -35,7 +35,7 @@ export default function Hero() {
       </div>
 
       {/* TOP HEADER ROW FOR HERO (A24 / Linear styling vibe - Placed at the very top to prevent overlapping) */}
-      <div className="absolute top-6 left-4 sm:left-6 lg:left-8 right-4 sm:right-6 lg:right-8 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="hero-top-row absolute top-6 left-4 sm:left-6 lg:left-8 right-4 sm:right-6 lg:right-8 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* METADATA HIGHLIGHT */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[9px] sm:text-[10px] text-neutral-400 tracking-wider">
           <span className="flex items-center gap-1.5">
@@ -54,15 +54,15 @@ export default function Hero() {
       </div>
 
       {/* MAIN CONTAINER FOR COPYWRITING */}
-      <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16">
+      <div className="hero-main-container relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-8"
+          className="space-y-8 hero-motion-content"
         >
           {/* Epic Main Header with Montserrat Typography */}
-          <h1 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white leading-none">
+          <h1 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white leading-none hero-heading">
             {t.hero.title.split('. ').map((part, index, arr) => (
               <span key={index} className="block">
                 {part.replace('.', '')}
@@ -72,12 +72,12 @@ export default function Hero() {
           </h1>
 
           {/* Balanced Subheadline */}
-          <p className="max-w-2xl mx-auto text-sm sm:text-base lg:text-lg text-neutral-300 font-sans font-light leading-relaxed">
+          <p className="max-w-2xl mx-auto text-sm sm:text-base lg:text-lg text-neutral-300 font-sans font-light leading-relaxed hero-subtitle">
             {t.hero.subtitle}
           </p>
 
           {/* Interactive Calls to action */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 hero-buttons">
             <button
               id="hero-book-now-cta"
               onClick={() => setCurrentPage('contact')}
@@ -100,7 +100,7 @@ export default function Hero() {
       </div>
 
       {/* HERO FOOTER SUBTLE BADGES ( DJI / Apple Style ) */}
-      <div className="absolute bottom-12 left-0 right-0 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hidden lg:flex justify-between items-center text-neutral-500 font-mono text-[9px] uppercase tracking-widest">
+      <div className="hero-bottom-row absolute bottom-12 left-0 right-0 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hidden lg:flex justify-between items-center text-neutral-500 font-mono text-[9px] uppercase tracking-widest">
         <div className="flex gap-8">
           <div className="flex items-center gap-2">
             <Award className="w-4 h-4 text-brand-orange/75" />

@@ -15,7 +15,6 @@ const Pricing = lazy(() => import('./components/Pricing'));
 const About = lazy(() => import('./components/About'));
 const Contact = lazy(() => import('./components/Contact'));
 const FAQ = lazy(() => import('./components/FAQ'));
-const DroneHUD = lazy(() => import('./components/DroneHUD'));
 
 export default function App() {
   const { currentPage, setCurrentPage, lang, t } = useApp();
@@ -75,7 +74,7 @@ export default function App() {
         <VerticalSidebar />
 
         {/* SITE VIEWS ROUTER */}
-        <main className="flex-grow pt-4 pb-24 px-4 md:pt-6 md:pb-6 md:pl-24 md:pr-8 transition-all duration-300">
+        <main className="flex-grow pb-24 md:pb-0 transition-all duration-300 w-full overflow-x-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
@@ -195,40 +194,6 @@ export default function App() {
                           </motion.div>
                         ))}
                       </div>
-                    </div>
-                  </section>
-
-                  {/* INTERACTIVE FPV DRONE RADAR & SIMULATOR PORT (Apple / DJI high fidelity) */}
-                  <section className="py-24 bg-[#090909] border-b border-white/5 relative overflow-hidden">
-                    {/* Glowing background grid ambient effects */}
-                    <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-orange/5 rounded-full blur-[120px] pointer-events-none" />
-                    
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                      <div className="text-center max-w-3xl mx-auto mb-12">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-[9px] font-mono tracking-widest text-brand-orange uppercase font-bold">
-                          <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-                          {lang === 'en' ? 'INTERACTIVE FLIGHT SIMULATION' : 'SIMULASI PENERBANGAN INTERAKTIF'}
-                        </span>
-                        <h2 className="font-display font-[900] text-3xl sm:text-4xl lg:text-5xl uppercase text-white mt-3 leading-none tracking-tight">
-                          {lang === 'en' ? 'FPV LIVE FLIGHT DECK' : 'FLIGHT DECK DRONE INTERAKTIF'}
-                        </h2>
-                        <p className="mt-3 text-xs sm:text-sm text-neutral-400 font-sans leading-relaxed">
-                          {lang === 'en' 
-                            ? 'Test our actual drone camera controls, altitude grids, ISO nodes, and live telemetry directly from your browser. Our crafts are built for extreme cinematic storytelling.'
-                            : 'Uji langsung kontrol kamera drone, kisi ketinggian, modul ISO, dan telemetri penerbangan langsung dari browser Anda. Armada kami dirancang khusus untuk penceritaan ekstrem.'}
-                        </p>
-                      </div>
-
-                      <Suspense fallback={
-                        <div className="w-full h-[500px] flex items-center justify-center bg-neutral-950/40 rounded-3xl border border-white/5">
-                          <div className="flex flex-col items-center gap-3">
-                            <div className="w-8 h-8 rounded-full border-2 border-brand-orange border-t-transparent animate-spin" />
-                            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">// BOOTING DRONE HUD TELEMETRY...</span>
-                          </div>
-                        </div>
-                      }>
-                        <DroneHUD />
-                      </Suspense>
                     </div>
                   </section>
 

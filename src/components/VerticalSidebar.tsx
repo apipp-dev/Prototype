@@ -9,8 +9,6 @@ import {
   Sliders, 
   HelpCircle,
   Mail, 
-  ChevronRight, 
-  ChevronLeft,
   Globe,
   Phone
 } from 'lucide-react';
@@ -80,19 +78,19 @@ export default function VerticalSidebar() {
       >
         {/* Sidebar main body - aligned to palette colors */}
         <motion.div
-          animate={{ width: isExpanded ? 240 : 60 }}
+          animate={{ width: isExpanded ? 280 : 96 }}
           transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-          className="glassmorphic-sidebar pointer-events-auto h-[580px] max-h-[calc(100vh-40px)] rounded-3xl bg-[#0D0D0D]/90 backdrop-blur-xl border border-[#2D2D2D] shadow-[0_0_30px_rgba(255,107,0,0.15)] flex flex-col justify-between p-2.5 overflow-hidden select-none"
+          className="glassmorphic-sidebar pointer-events-auto h-[780px] xl:h-[840px] max-h-[calc(100vh-60px)] rounded-[36px] bg-[#0D0D0D]/90 backdrop-blur-xl border border-[#2D2D2D] shadow-[0_0_30px_rgba(255,107,0,0.15)] flex flex-col justify-between px-5 py-6 overflow-hidden select-none"
         >
           {/* Top Logo - SP Logo toggles expanded state */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className={`flex items-center pb-3 border-b border-[#2D2D2D] w-full group cursor-pointer text-left focus:outline-none ${
-              isExpanded ? 'px-1.5 gap-3' : 'justify-center gap-0 px-0'
+            className={`flex items-center pb-4 border-b border-[#2D2D2D] w-full group cursor-pointer text-left focus:outline-none ${
+              isExpanded ? 'px-2 gap-3.5' : 'justify-center gap-0 px-0'
             }`}
             title={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-[#0D0D0D] border border-[#FF6B00]/40 overflow-hidden shadow-[0_0_15px_rgba(255,107,0,0.3)] transition-all duration-300 group-hover:border-[#FF6B00] shrink-0">
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-[#0D0D0D] border border-[#FF6B00]/40 overflow-hidden shadow-[0_0_15px_rgba(255,107,0,0.3)] transition-all duration-300 group-hover:border-[#FF6B00] shrink-0">
               <img
                 src={brandLogo}
                 alt="SANTT PRODUCTION"
@@ -109,10 +107,10 @@ export default function VerticalSidebar() {
                   transition={{ duration: 0.2 }}
                   className="flex flex-col text-left overflow-hidden whitespace-nowrap"
                 >
-                  <span className="font-display font-black text-xs text-white uppercase tracking-wider">
+                  <span className="font-display font-black text-sm text-white uppercase tracking-wider">
                     SANTT PRO
                   </span>
-                  <span className="text-[9px] font-mono tracking-widest text-[#FF6B00] uppercase leading-none">
+                  <span className="text-[10px] font-mono tracking-widest text-[#FF6B00] uppercase leading-none mt-0.5">
                     {t.meta.tagline}
                   </span>
                 </motion.div>
@@ -121,7 +119,7 @@ export default function VerticalSidebar() {
           </button>
 
           {/* Center menu links */}
-          <div className="flex-grow flex flex-col justify-center gap-1.5 my-2">
+          <div className="flex-grow flex flex-col justify-center gap-4 my-4">
             {menuItems.map((item) => {
               const isActive = currentPage === item.id;
               return (
@@ -131,8 +129,8 @@ export default function VerticalSidebar() {
                   onClick={() => {
                     setCurrentPage(item.id);
                   }}
-                  className={`relative w-full rounded-2xl flex items-center h-10 transition-all duration-300 group ${
-                    isExpanded ? 'justify-start px-3.5' : 'justify-center px-0'
+                  className={`sidebar-btn relative rounded-[18px] flex items-center h-[52px] transition-all duration-300 group ${
+                    isExpanded ? 'w-full justify-start px-4' : 'w-[52px] justify-center mx-auto'
                   } ${
                     isActive 
                       ? 'text-white font-bold' 
@@ -145,7 +143,7 @@ export default function VerticalSidebar() {
                   {isActive && (
                     <motion.div
                       layoutId="sidebarActiveBackground"
-                      className="absolute inset-0 bg-[#FF6B00] rounded-2xl shadow-[0_0_15px_rgba(255,107,0,0.35)]"
+                      className="absolute inset-0 bg-[#FF6B00] rounded-[18px] shadow-[0_0_15px_rgba(255,107,0,0.35)]"
                       style={{ zIndex: 0 }}
                       transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                     />
@@ -154,7 +152,7 @@ export default function VerticalSidebar() {
                   {/* Icon (above active highlight) */}
                   <span className="relative z-10 flex items-center justify-center shrink-0">
                     {React.cloneElement(item.icon, {
-                      className: `w-4 h-4 transition-colors ${
+                      className: `w-[22px] h-[22px] transition-colors ${
                         isActive ? 'text-white' : 'group-hover:scale-110 duration-200'
                       }`
                     })}
@@ -168,7 +166,7 @@ export default function VerticalSidebar() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="relative z-10 ml-3.5 font-display text-[11px] uppercase tracking-wider overflow-hidden whitespace-nowrap"
+                        className="relative z-10 ml-4 font-display text-[13px] font-semibold uppercase tracking-wider overflow-hidden whitespace-nowrap"
                       >
                         {item.label}
                       </motion.span>
@@ -180,17 +178,17 @@ export default function VerticalSidebar() {
           </div>
 
           {/* Bottom utility section (Language, CTA, Collapse Toggle) */}
-          <div className="mt-auto pt-3 border-t border-[#2D2D2D] flex flex-col gap-2">
+          <div className="mt-auto pt-5 border-t border-[#2D2D2D] flex flex-col gap-4">
             {/* Language Switcher */}
             <button
               onClick={() => setLang(lang === 'en' ? 'id' : 'en')}
-              className={`w-full h-10 rounded-2xl flex items-center transition-all duration-300 group hover:bg-[#2D2D2D]/40 text-[#F5F5F5]/60 hover:text-white cursor-pointer ${
-                isExpanded ? 'justify-start px-3.5' : 'justify-center px-0'
+              className={`sidebar-btn rounded-[18px] flex items-center h-[52px] transition-all duration-300 group hover:bg-[#2D2D2D]/40 text-[#F5F5F5]/60 hover:text-white cursor-pointer ${
+                isExpanded ? 'w-full justify-start px-4' : 'w-[52px] justify-center mx-auto'
               }`}
               title={lang === 'en' ? 'Switch to Indonesian' : 'Ubah ke Bahasa Inggris'}
             >
               <span className="flex items-center justify-center shrink-0">
-                <Globe className="w-4 h-4 text-[#FF6B00] animate-pulse" />
+                <Globe className="w-[22px] h-[22px] text-[#FF6B00] animate-pulse" />
               </span>
               <AnimatePresence>
                 {isExpanded && (
@@ -199,7 +197,7 @@ export default function VerticalSidebar() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="ml-3.5 font-mono text-[9px] uppercase tracking-wider overflow-hidden whitespace-nowrap"
+                    className="ml-4 font-mono text-[10px] uppercase tracking-wider overflow-hidden whitespace-nowrap"
                   >
                     {lang === 'en' ? 'EN' : 'ID'}
                   </motion.span>
@@ -213,8 +211,8 @@ export default function VerticalSidebar() {
               onClick={() => {
                 setCurrentPage('contact');
               }}
-              className={`w-full h-10 rounded-2xl flex items-center transition-all duration-300 group ${
-                isExpanded ? 'justify-start px-3.5' : 'justify-center px-0'
+              className={`sidebar-btn h-[52px] rounded-[18px] flex items-center transition-all duration-300 group ${
+                isExpanded ? 'w-full justify-start px-4' : 'w-[52px] justify-center mx-auto'
               } ${
                 currentPage === 'contact'
                   ? 'bg-[#FF8C42] text-white'
@@ -223,7 +221,7 @@ export default function VerticalSidebar() {
               title={t.nav.bookProject}
             >
               <span className="flex items-center justify-center shrink-0">
-                <Phone className="w-4 h-4" />
+                <Phone className="w-[20px] h-[20px]" />
               </span>
               <AnimatePresence>
                 {isExpanded && (
@@ -232,7 +230,7 @@ export default function VerticalSidebar() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="ml-3.5 font-display text-[9px] font-bold uppercase tracking-wider overflow-hidden whitespace-nowrap"
+                    className="ml-4 font-display text-[10px] font-black uppercase tracking-wider overflow-hidden whitespace-nowrap"
                   >
                     {t.nav.bookProject}
                   </motion.span>
@@ -240,13 +238,6 @@ export default function VerticalSidebar() {
               </AnimatePresence>
             </button>
 
-            {/* Expand/Collapse Chevron (Desktop only) */}
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="hidden lg:flex w-full h-8 rounded-2xl border border-[#2D2D2D] bg-[#2D2D2D]/30 text-[#F5F5F5]/60 hover:bg-[#2D2D2D]/50 hover:text-white transition-all items-center justify-center shrink-0 cursor-pointer"
-            >
-              {isExpanded ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-            </button>
           </div>
         </motion.div>
       </div>

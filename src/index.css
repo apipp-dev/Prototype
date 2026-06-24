@@ -58,3 +58,134 @@ body {
 .v-overlay {
   background: linear-gradient(to top, #0D0D0D 0%, rgba(13, 13, 13, 0.7) 50%, rgba(13, 13, 13, 0.1) 100%);
 }
+
+/* HIGH-FIDELITY RESPONSIVE SCALING FOR SHORT HEIGHTS (Laptops, e.g., viewport height <= 850px) */
+@media (max-height: 850px) {
+  /* Scale down Sidebar proportions so they fit 100% on laptops without overflow */
+  .glassmorphic-sidebar {
+    height: auto !important;
+    max-height: calc(100vh - 32px) !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  .glassmorphic-sidebar .sidebar-btn {
+    height: 48px !important; /* Elegant tall buttons, never touching borders */
+  }
+  
+  .glassmorphic-sidebar .my-2,
+  .glassmorphic-sidebar .my-3,
+  .glassmorphic-sidebar .my-4 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    gap: 0.35rem !important;
+  }
+  
+  /* Scale down Hero Section elements so they never clip or overlap on laptops */
+  .hero-heading {
+    font-size: 3.5rem !important; /* approx 56px instead of giant 96px text-8xl */
+    line-height: 1.1 !important;
+  }
+  
+  .hero-motion-content > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.85rem !important;
+    max-width: 32rem !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .hero-buttons {
+    padding-top: 0.5rem !important;
+    gap: 0.75rem !important;
+  }
+  
+  .hero-buttons button {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  .hero-top-row {
+    top: 1rem !important;
+  }
+  
+  .hero-bottom-row {
+    bottom: 1.5rem !important;
+  }
+}
+
+/* Extra support for extremely short viewports (e.g. <= 700px vertical space, typical of some 11"-13" laptops or split screens) */
+@media (max-height: 700px) {
+  .glassmorphic-sidebar {
+    max-height: calc(100vh - 20px) !important;
+  }
+  
+  .glassmorphic-sidebar .sidebar-btn {
+    height: 44px !important; /* Maintains beautiful breathing room and balanced text/icon spacing */
+  }
+  
+  .glassmorphic-sidebar .text-[11px],
+  .glassmorphic-sidebar .text-[13px] {
+    font-size: 11px !important;
+  }
+  
+  .hero-heading {
+    font-size: 2.75rem !important; /* beautifully scale down further */
+  }
+  
+  .hero-subtitle {
+    font-size: 0.8rem !important;
+    max-width: 28rem !important;
+  }
+  
+  .hero-main-container {
+    padding-top: 3.5rem !important;
+  }
+}
+
+/* FLOATING SIDEBAR OVERLAP MITIGATION AND FULL-BLEED DESIGN ALIGNMENTS */
+@media (min-width: 768px) {
+  main .max-w-7xl,
+  main .max-w-5xl,
+  main .max-w-4xl,
+  main .max-w-3xl,
+  footer .max-w-4xl {
+    max-width: 100% !important; /* Full-bleed layout utilization on laptops and desktop screens */
+    padding-left: 9.5rem !important; /* 152px left padding to keep content perfectly clear of the left-floating sidebar with beautiful breathing room */
+    padding-right: 3.5rem !important;
+  }
+  .hero-top-row {
+    left: 9.5rem !important;
+    right: 3.5rem !important;
+  }
+  .hero-bottom-row {
+    padding-left: 9.5rem !important;
+    padding-right: 3.5rem !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  /* On 1920px (Full HD) and large screens, eliminate side blank spaces and expand grids beautifully */
+  main .max-w-7xl,
+  main .max-w-5xl,
+  main .max-w-4xl,
+  main .max-w-3xl,
+  footer .max-w-4xl {
+    max-width: 100% !important;
+    padding-left: 10.5rem !important; /* 168px - perfectly proportioned and aligned next to the sidebar menu */
+    padding-right: 5rem !important;
+  }
+  .hero-top-row {
+    left: 10.5rem !important;
+    right: 5rem !important;
+  }
+  .hero-bottom-row {
+    padding-left: 10.5rem !important;
+    padding-right: 5rem !important;
+  }
+}
+
+
